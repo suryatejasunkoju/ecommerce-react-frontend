@@ -4,6 +4,7 @@ import AddToCart from "./AddToCart"
 
 function Product({product}) 
 {
+    
     // console.log("Product::product=", product);
     // console.log("Product::product.id=", product.id);
     // const endpoint = "products/1";
@@ -24,7 +25,7 @@ function Product({product})
             <img src={product.image} />
             <p>${product.title}</p>
             <p className='price' >${product.price}</p>
-            <AddToCart productId={product.id} quantity={1}/>
+            {/* <AddToCart productId={product.id} quantity={1}/> */}
             {/* <button className="add-to-cart-btn" >Add to Cart</button> */}
         </div>
     )

@@ -6,13 +6,16 @@ import LoginSignUp from './components/LoginSignUp';
 import AllProducts from './components/AllProducts'
 
 function App() {
+  const [email, setEmail] = useState(null);
+  console.log("App::email=", email);
+  
   return (
     <BrowserRouter>
     <Routes>
       {/* <Route path='' element={} /> */}
       <Route path='/products/all' element={<AllProducts/>} />
       <Route path='/' element={<HomePage/>} />
-      <Route path='/auth' element={<LoginSignUp/>}/>
+      <Route path='/auth' element={<LoginSignUp onLoginSuccess={setEmail}/>}/>
     </Routes>
     </BrowserRouter>
   );

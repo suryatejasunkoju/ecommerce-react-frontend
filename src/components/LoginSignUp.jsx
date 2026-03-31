@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function LoginSignUp(params) {
+
+function LoginSignUp({onLoginSuccess}) {
+    const navigate = useNavigate();
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const login = async (event) => {
@@ -12,18 +15,33 @@ function LoginSignUp(params) {
             "email": "john@mail.com",
             "password": "changeme"
         }
-        const response = await fetch(
-            // import.meta.env.VITE_BACKEND_API_BASE_URL 
-            "https://api.escuelajs.co/api/v1/auth/login"
-            // + "auth/login"
-            ,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(credentials)
-            });
-        const resJson = await response.json();
-        console.log("login::resJson=", resJson);
+        try {
+            const response = await fetch(
+                // import.meta.env.VITE_BACKEND_API_BASE_URL 
+                "https://api.escuelajs.co/api/v1/auth/login"
+                // + "auth/login"
+                ,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(credentials)
+                });
+
+            const resJson = await response.json();
+            console.log("login::resJson=", resJson);
+            if (response.ok) {
+                onLoginSuccess(username);
+                localStorage.setItem("access_token", resJson.access_token);
+                localStorage.setItem("refresh_token", resJson.refresh_token);
+                console.log("_token", localStorage.getItem("access_token") + ",-=>" + localStorage.getItem("refresh_token"));
+                navigate("/");
+            }
+            else {
+                console.log("Unauthorized, Please check your credentials");
+            }
+        } catch (error) {
+            console.error("LoginSignUp:", error);
+        }
     };
     return (
         <form className="login-form" onSubmit={login}>

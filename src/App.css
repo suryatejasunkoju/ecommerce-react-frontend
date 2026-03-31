@@ -361,3 +361,23 @@ section {
 input {
   color: black;
 }
+
+.home-banner {
+  margin: 50px 10px;
+  /* display: inline-block; */
+  list-style: none;
+  height: fit-content;
+  width: fit-content;
+  background-color: #483520;
+}
+.home-banner img{
+  /* aspect-ratio: 1.5/1; */
+  width: 290px;
+  height: 250px;
+  object-fit: cover;
+  object-position: 0% 0%;
+}
+.home-banner-section{
+  display: flex;
+  flex-direction: row;
+}
